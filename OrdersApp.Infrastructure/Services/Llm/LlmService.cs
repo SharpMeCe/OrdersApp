@@ -80,7 +80,7 @@ Treść maila:
             try
             {
                 await _rateLimiter.WaitAsync();
-                await Task.Delay(1000); // dodatkowe opóźnienie
+                await Task.Delay(1000); 
 
                 HttpResponseMessage response = null!;
                 int retry = 0;

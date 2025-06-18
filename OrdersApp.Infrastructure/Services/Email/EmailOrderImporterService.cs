@@ -58,7 +58,6 @@ public class EmailOrderImporterService
 
             var contentsToProcess = new List<string>();
 
-            // 1. Dodaj treść główną maila (jeśli istnieje)
             var body = message.TextBody ?? message.HtmlBody ?? "";
             if (!string.IsNullOrWhiteSpace(body))
             {
@@ -66,7 +65,6 @@ public class EmailOrderImporterService
                 Console.WriteLine("Dodano treść maila do przetworzenia.");
             }
 
-            // 2. Przetwórz załączniki
             foreach (var attachment in message.Attachments)
             {
                 if (attachment is MessagePart messagePart)

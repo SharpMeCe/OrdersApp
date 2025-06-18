@@ -50,7 +50,6 @@ namespace OrdersApp.WebUI.DebugTools
                 Console.WriteLine($"Błąd IMAP: {ex.Message}");
             }
 
-            // === PRZETWARZANIE MAILI PRZEZ GPT I ZAPIS DO BAZY ===
             try
             {
                 using var scope = _serviceProvider.CreateScope();
@@ -67,7 +66,6 @@ namespace OrdersApp.WebUI.DebugTools
                 Console.WriteLine($"Błąd LLM/zapisu do bazy: {ex.Message}");
             }
 
-            // === WYPISANIE ZAWARTOŚCI TABELI ===
             try
             {
                 using var scope = _serviceProvider.CreateScope();
