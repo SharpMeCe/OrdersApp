@@ -1,0 +1,40 @@
+﻿@page "/ordertable"
+@inject IOrderRepository OrderRepository
+
+<h3>Lista zamówień</h3>
+
+@if (orders == null)
+{
+    <p><em>Ładowanie...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Ilość</th>
+                <th>Cena</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in orders)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<OrderItem>? orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await OrderRepository.GetAllOrderItemsAsync();
+    }
+}

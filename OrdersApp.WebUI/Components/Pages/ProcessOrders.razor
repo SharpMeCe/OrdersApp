@@ -1,0 +1,52 @@
+﻿@page "/process-orders"
+@using OrdersApp.Infrastructure.Services.Email
+@inject EmailOrderImporterService Importer
+
+<h3>📦 Przetwarzanie zamówień z e-maili</h3>
+
+<MudButton Color="Color.Primary" @onclick="RunImporter">
+    🔁 Pobierz i przetwórz e-maile z zamówieniami
+</MudButton>
+
+@if (_loading)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else if (_finished)
+{
+    <MudAlert Severity="Severity.Success">✅ Zamówienia pobrane i zapisane.</MudAlert>
+}
+else if (_hasError)
+{
+    <MudAlert Severity="Severity.Error">
+        ❌ Coś poszło nie tak przy przetwarzaniu.
+    </MudAlert>
+}
+
+@code {
+    private bool _loading = false;
+    private bool _hasError = false;
+    private bool _finished = false;
+
+    private async Task RunImporter()
+    {
+        _loading = true;
+        _hasError = false;
+        _finished = false;
+
+        try
+        {
+            await Importer.FetchAndImportOrdersAsync("krystiangugala888@gmail.com", "qpxrrnfwprwywina");
+            _finished = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Błąd importera: {ex.Message}");
+            _hasError = true;
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+}
