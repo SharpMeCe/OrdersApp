@@ -44,7 +44,7 @@ public class EmailOrderImporterService
             {
                 filteredUids.Add(uid);
 
-                if (filteredUids.Count >= 5)
+                if (filteredUids.Count >= 8)
                     break;
             }
         }
