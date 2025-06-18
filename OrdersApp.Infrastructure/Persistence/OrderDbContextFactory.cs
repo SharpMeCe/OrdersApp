@@ -9,8 +9,8 @@ namespace OrdersApp.Infrastructure.Persistence
         {
             var optionsBuilder = new DbContextOptionsBuilder<OrderDbContext>();
             optionsBuilder.UseMySql(
-                "server=localhost;port=3306;user=root;password=root;database=ordersdb",
-                ServerVersion.AutoDetect("server=localhost;port=3306;user=root;password=root;database=ordersdb"));
+                "server=localhost;port=3306;user=root;password=root;database=ordersdb - YOU NUST SET IT FOR YOUR LOCAL SETTINGS",
+                ServerVersion.AutoDetect("server=localhost;port=3306;user=root;password=root;database=ordersdb - YOU NUST SET IT FOR YOUR LOCAL SETTINGS"));
 
             return new OrderDbContext(optionsBuilder.Options);
         }

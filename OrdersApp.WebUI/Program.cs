@@ -45,7 +45,7 @@ app.MapRazorComponents<App>()
 using (var scope = app.Services.CreateScope())
 {
     var importer = scope.ServiceProvider.GetRequiredService<EmailOrderImporterService>();
-    await importer.FetchAndImportOrdersAsync("krystiangugala888@gmail.com", "qpxrrnfwprwywina");
+    await importer.FetchAndImportOrdersAsync("putEmailAddress", "PutEmailKey");
 }
 
 await app.RunAsync();

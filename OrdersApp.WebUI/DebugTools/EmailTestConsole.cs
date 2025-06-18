@@ -27,8 +27,8 @@ namespace OrdersApp.WebUI.DebugTools
             try
             {
                 using var client = new ImapClient();
-                await client.ConnectAsync("imap.gmail.com", 993, true);
-                await client.AuthenticateAsync("krystiangugala888@gmail.com", "qpxrrnfwprwywina");
+                await client.ConnectAsync("Imap.addres.PutOnThisPlace", 993, true);
+                await client.AuthenticateAsync("PutYourEmailAddress", "PutYourEmailPasswordKey");
 
                 var inbox = client.Inbox;
                 await inbox.OpenAsync(FolderAccess.ReadOnly);

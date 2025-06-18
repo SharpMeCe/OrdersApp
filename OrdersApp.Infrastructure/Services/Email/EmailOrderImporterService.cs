@@ -24,7 +24,7 @@ public class EmailOrderImporterService
     public async Task FetchAndImportOrdersAsync(string email, string password)
     {
         using var client = new ImapClient();
-        await client.ConnectAsync("imap.gmail.com", 993, true);
+        await client.ConnectAsync("PutYourIMAPadress", 993, true);
         await client.AuthenticateAsync(email, password);
 
         var inbox = client.Inbox;
