@@ -30,7 +30,7 @@ namespace OrdersApp.Infrastructure.Services.Llm
 
         public async Task<List<OrderItemDto>> ExtractOrderItemsAsync(string mailBody)
         {
-            Console.WriteLine("🧠 Start przetwarzania maila...");
+            Console.WriteLine("Start przetwarzania maila...");
 
             var trimmed = mailBody.Trim();
 
@@ -42,13 +42,13 @@ namespace OrdersApp.Infrastructure.Services.Llm
                     var localResult = JsonSerializer.Deserialize<List<OrderItemDto>>(trimmed);
                     if (localResult != null && localResult.Count > 0)
                     {
-                        Console.WriteLine("✅ Wykryto gotowy JSON – parsowanie lokalne bez GPT.");
+                        Console.WriteLine("Wykryto gotowy JSON – parsowanie lokalne bez GPT.");
                         return localResult;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"⚠️ Błąd lokalnego parsowania JSON: {ex.Message}");
+                    Console.WriteLine($"Błąd lokalnego parsowania JSON: {ex.Message}");
                 }
             }
 
@@ -56,7 +56,7 @@ namespace OrdersApp.Infrastructure.Services.Llm
             var cacheKey = trimmed.GetHashCode().ToString();
             if (_cache.TryGetValue(cacheKey, out var cached))
             {
-                Console.WriteLine("📦 Zwrócono z cache.");
+                Console.WriteLine("Zwrócono z cache.");
                 return cached;
             }
 
@@ -91,7 +91,7 @@ Treść maila:
                     if ((int)response.StatusCode != 429)
                         break;
 
-                    Console.WriteLine("⚠️ Przekroczono limit – czekam 2s...");
+                    Console.WriteLine("Przekroczono limit – czekam 2s...");
                     await Task.Delay(2000);
                     retry++;
                 }
@@ -108,19 +108,19 @@ Treść maila:
                     .GetProperty("content")
                     .GetString();
 
-                Console.WriteLine($"📤 Odpowiedź GPT:\n{content}");
+                Console.WriteLine($"Odpowiedź GPT:\n{content}");
 
                 var start = content.IndexOf('[');
                 var end = content.LastIndexOf(']');
                 if (start == -1 || end == -1 || end <= start)
-                    throw new Exception("❌ Nie znaleziono poprawnego JSON-a w odpowiedzi GPT.");
+                    throw new Exception("Nie znaleziono poprawnego JSON-a w odpowiedzi GPT.");
 
                 var jsonOnly = content.Substring(start, end - start + 1);
                 var result = JsonSerializer.Deserialize<List<OrderItemDto>>(jsonOnly) ?? new();
 
                 _cache[cacheKey] = result;
 
-                Console.WriteLine($"✅ Sparsowano {result.Count} pozycji z JSON.");
+                Console.WriteLine($"Sparsowano {result.Count} pozycji z JSON.");
                 return result;
             }
             finally
