@@ -20,7 +20,7 @@ namespace OrdersApp.WebUI.DebugTools
 
         public async Task TestConnection()
         {
-            Console.WriteLine("📨 Start testu połączenia z Gmailem...");
+            Console.WriteLine("Start testu połączenia z Gmailem...");
 
             List<MimeMessage> emails = [];
 
@@ -32,22 +32,22 @@ namespace OrdersApp.WebUI.DebugTools
 
                 var inbox = client.Inbox;
                 await inbox.OpenAsync(FolderAccess.ReadOnly);
-                Console.WriteLine($"✅ Zalogowano! W skrzynce: {inbox.Count} wiadomości.");
+                Console.WriteLine($"Zalogowano! W skrzynce: {inbox.Count} wiadomości.");
 
                 var uids = await inbox.SearchAsync(SearchQuery.All);
                 foreach (var uid in uids.Reverse().Take(10))
                 {
                     var message = await inbox.GetMessageAsync(uid);
-                    Console.WriteLine($"✔️ Mail: {message.Subject}");
+                    Console.WriteLine($"Mail: {message.Subject}");
                     emails.Add(message);
                 }
 
                 await client.DisconnectAsync(true);
-                Console.WriteLine("🔌 Rozłączono z Gmailem.");
+                Console.WriteLine("Rozłączono z Gmailem.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Błąd IMAP: {ex.Message}");
+                Console.WriteLine($"Błąd IMAP: {ex.Message}");
             }
 
             // === PRZETWARZANIE MAILI PRZEZ GPT I ZAPIS DO BAZY ===
@@ -59,12 +59,12 @@ namespace OrdersApp.WebUI.DebugTools
                 foreach (var email in emails)
                 {
                     var items = await processor.ExtractOrderItemsFromEmailAsync(email);
-                    Console.WriteLine($"📥 {email.Subject} => {items.Count} pozycji zapisanych do bazy.");
+                    Console.WriteLine($"{email.Subject} => {items.Count} pozycji zapisanych do bazy.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Błąd LLM/zapisu do bazy: {ex.Message}");
+                Console.WriteLine($"Błąd LLM/zapisu do bazy: {ex.Message}");
             }
 
             // === WYPISANIE ZAWARTOŚCI TABELI ===
@@ -74,18 +74,18 @@ namespace OrdersApp.WebUI.DebugTools
                 var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
                 var orders = await db.OrderItems.ToListAsync();
 
-                Console.WriteLine($"📦 Znaleziono {orders.Count} zamówień w bazie:");
+                Console.WriteLine($"Znaleziono {orders.Count} zamówień w bazie:");
                 foreach (var item in orders)
                 {
-                    Console.WriteLine($"🧾 {item.ProductName} | Ilość: {item.Quantity} | Cena: {item.Price} | Data: {item.OrderDate}");
+                    Console.WriteLine($"{item.ProductName} | Ilość: {item.Quantity} | Cena: {item.Price} | Data: {item.OrderDate}");
                 }
 
                 if (orders.Count == 0)
-                    Console.WriteLine("⚠️ Brak zamówień w tabeli `order_items`.");
+                    Console.WriteLine("Brak zamówień w tabeli `order_items`.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Błąd przy odczycie z bazy: {ex.Message}");
+                Console.WriteLine($"Błąd przy odczycie z bazy: {ex.Message}");
             }
         }
     }
