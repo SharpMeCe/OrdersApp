@@ -33,13 +33,13 @@ Głównym celem OrdersApp jest usprawnienie procesu przyjmowania zamówień popr
 * **Język:** C# (.NET)
 * **Pobieranie E-maili:** [MailKit](https://github.com/jstedfast/MailKit) (Biblioteka do IMAP/POP3/SMTP)
 * **Obsługa Danych:** [MimeKit](https://github.com/jstedfast/MimeKit) (Część MailKit, do parsowania MIME)
-* **Baza Danych:** Entity Framework Core (OR/M), prawdopodobnie z providerem dla MySQL (np. Pomelo.EntityFrameworkCore.MySql, wnioskując po logach SQL)
-* **Integracja LLM:** Dedykowany serwis do komunikacji z modelem LLM (np. OpenAI GPT, Google Gemini, itp.)
+* **Baza Danych:** Entity Framework Core (OR/M)z providerem dla MySQL (Pomelo.EntityFrameworkCore.MySql)
+* **Integracja LLM:** Dedykowany serwis do komunikacji z modelem LLM.
 * **Zarządzanie Wersjami:** Git
 
 ## Wymagania
 
-* .NET SDK (najnowsza wersja LTS, np. .NET 8)
+* .NET SDK 
 * Dostęp do konta e-mail IMAP (np. Gmail) z włączoną opcją dostępu dla mniej bezpiecznych aplikacji lub hasłem do aplikacji (jeśli używasz uwierzytelniania dwuskładnikowego).
 * Klucz API dla używanego modelu LLM (szczegóły konfiguracji w `appsettings.json` lub zmiennych środowiskowych).
 * Działająca instancja bazy danych MySQL (lub innej, jeśli zmieniono konfigurację EF Core).
