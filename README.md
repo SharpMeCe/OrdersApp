@@ -12,7 +12,6 @@ OrdersApp to aplikacja konsolowa/serwis (lub usługa w tle), której głównym z
 - [Uruchamianie](#uruchamianie)
 - [Struktura Projektu](#struktura-projektu)
 - [Autor](#autor)
-- [Licencja](#licencja)
 
 ## Opis Projektu
 
